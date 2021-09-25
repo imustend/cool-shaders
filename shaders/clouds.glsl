@@ -13,6 +13,9 @@ vec3 color3 = vec3(61, 101, 145);
 vec3 color4 = vec3(90, 128, 151);
 vec2 sp;
 
+float noiseSpeed = 10000;
+float fmbSpeed = 30000;
+
 float RGBRange = 255.0;
 int pixelSize = 5;
 
@@ -83,9 +86,9 @@ void main() {
 
     //  THE PART THAT REALLY MATTERS
     float clouds = smoothstep(0.4, 1.0, st.y) * 0.8;
-    vec2 cp = st + vec2(u_time / 10000, 0.0);
+    vec2 cp = st + vec2(u_time / noiseSpeed, 0.0);
     float rnd = noise(cp * 7.5);
-    float fbm = fbm((st + vec2(u_time / 30000, 0.0)) * 6);
+    float fbm = fbm((st + vec2(u_time / fmbSpeed, 0.0)) * 6);
 
 
     vec3 color = (vec3(rnd) * clouds * fbm) + mix(color3 / RGBRange, color4 / RGBRange, st.y);
